@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eRecruiter.SocialConnector", "eRecruiter.SocialConnector\eRecruiter.SocialConnector.csproj", "{FA12D2FF-97AD-476C-B662-74B95BBBBC96}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eRecruiter.SocialConnector.Samples", "eRecruiter.SocialConnector.Samples\eRecruiter.SocialConnector.Samples.csproj", "{8E3A7131-E00E-446D-B6E7-3500F0047329}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{01AAC8D4-B151-4371-9898-D5D8412BAA9D}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eRecruiter.SocialConnector.Tests", "eRecruiter.SocialConnector.Tests\eRecruiter.SocialConnector.Tests.csproj", "{ADEDA73C-BB26-4DEE-89AC-E952C12CBB88}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FA12D2FF-97AD-476C-B662-74B95BBBBC96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA12D2FF-97AD-476C-B662-74B95BBBBC96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA12D2FF-97AD-476C-B662-74B95BBBBC96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA12D2FF-97AD-476C-B662-74B95BBBBC96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E3A7131-E00E-446D-B6E7-3500F0047329}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E3A7131-E00E-446D-B6E7-3500F0047329}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E3A7131-E00E-446D-B6E7-3500F0047329}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E3A7131-E00E-446D-B6E7-3500F0047329}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADEDA73C-BB26-4DEE-89AC-E952C12CBB88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADEDA73C-BB26-4DEE-89AC-E952C12CBB88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADEDA73C-BB26-4DEE-89AC-E952C12CBB88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADEDA73C-BB26-4DEE-89AC-E952C12CBB88}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

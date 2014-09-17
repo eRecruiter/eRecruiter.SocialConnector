@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+  <appSettings>
+    <add key="webpages:Version" value="2.0.0.0" />
+    <add key="webpages:Enabled" value="false" />
+    <add key="PreserveLoginUrl" value="true" />
+    <add key="ClientValidationEnabled" value="true" />
+    <add key="UnobtrusiveJavaScriptEnabled" value="true" />
+
+    <add key="XingConsumerKey" value=""/>
+    <add key="XingConsumerSecret" value=""/>
+    <add key="LinkedinConsumerKey" value=""/>
+    <add key="LinkedinConsumerSecret" value=""/>
+  </appSettings>

@@ -1,0 +1,29 @@
+﻿@model IEnumerable<eRecruiter.SocialConnector.Xing.Entities.XingUser>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+</head>
+<body>
+    <div>
+        @using (Html.BeginForm())
+        {
+            <p>
+                <input type="text" name="id" placeholder="User ID or page name" style="width: 300px;" /><input type="submit" value="Search" /><br />
+                Separate by comma, ie. "hannes_sachsenhofer,michael_mittermair"
+            </p>
+        }
+
+        @if (Model != null && Model.Any())
+        {
+            <ul>
+                @foreach (var user in Model)
+                {
+                    <li>@user.FirstName @user.LastName (<a href="@user.PermaLink">@user.PermaLink</a></li>
+                }
+            </ul> 
+        }
+    </div>
+</body>
+</html>

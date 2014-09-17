@@ -1,0 +1,118 @@
+﻿@model eRecruiter.SocialConnector.Xing.Entities.XingUser
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <style> 
+            th { padding: 1px 5px 1px 5px; text-align: left; font-size: 14px;}
+            td { padding: 1px 5px 1px 5px; }
+        </style>
+    </head>
+    <body>
+        @Html.ActionLink("View using the unified profile", "UnifiedProfile")
+
+        <div>
+            <p>Hello there, <b>@Model.FirstName @Model.LastName.</b></p>
+            @if (Model.Experience.PrimaryCompany != null)
+            {
+                <p>According to XING, you are currently working at <b>@Model.Experience.PrimaryCompany.Name</b>.<br/>
+                    Your Birthdate: @Model.BirthDate.GetDateIfPossible()</p>
+            }
+            else
+            {
+                <p>According to XING, you are not working at all.</p>
+            }
+        
+        
+        
+            @if (Model.EducationalBackground.Qualifications != null)
+            {
+                <p style="margin-bottom: 3px; text-decoration: underline;">Your Qualifications:</p>
+                <table style="padding-left: 20px;">
+                    @foreach (var qual in Model.EducationalBackground.Qualifications)
+                    {
+                        <tr>
+                            <td>@qual</td>
+                        </tr>
+                    }
+                </table>
+            }
+        
+            @if (Model.EducationalBackground.Schools != null)
+            {
+                <p style="margin-bottom: 3px; text-decoration: underline;">Your Schools:</p>
+                <table style="padding-left: 20px;">
+                    <tr>
+                        <th >Name</th>
+                        <th>Subject</th>
+                        <th>Degree</th>
+                        <th>Begint Date</th>
+                        <th>End Date</th>
+                        <th>Notes</th>
+                    </tr>
+
+                    @foreach (var school in Model.EducationalBackground.Schools)
+                    {
+                        <tr>
+                            <td>@school.Name</td>
+                            <td>@school.FieldOfStudy</td>
+                            <td>@school.Degree</td>
+                            <td>@school.StartDate</td>
+                            <td>@school.EndDate</td>
+                            <td>@school.Notes</td>
+                        </tr>
+                    }
+                </table>
+            }
+        
+            @if (Model.PhotoUrls != null)
+            {
+                <p style="margin-bottom: 3px; text-decoration: underline;">Photo Urls:</p>
+                <table style="padding-left: 20px;">
+                    <tr>
+                        <td>Large:</td>
+                        <td><a href="@Model.PhotoUrls.Large"><img src="@Model.PhotoUrls.Large" height="30"/></a></td>
+                    </tr>
+                    <tr>
+                        <td>Thumb:</td>
+                        <td><a href="@Model.PhotoUrls.Large">@Model.PhotoUrls.Thumb</a></td>
+                    </tr>
+                    <tr>
+                        <td>Mini Thumb:</td>
+                        <td><a href="@Model.PhotoUrls.Large">@Model.PhotoUrls.MiniThumb</a></td>
+                    </tr>
+                    <tr>
+                        <td>Medium Thumb:</td>
+                        <td><a href="@Model.PhotoUrls.Large">@Model.PhotoUrls.MediumThumb</a></td>
+                    </tr>
+                    <tr>
+                        <td>Maxi Thumb:</td>
+                        <td><a href="@Model.PhotoUrls.Large">@Model.PhotoUrls.MaxiThumb</a></td>
+                    </tr>
+                </table>
+            }
+        
+            @if (Model.Languages != null)
+            {
+                <p style="margin-bottom: 3px; text-decoration: underline;">Languages:</p>
+                <table style="padding-left: 20px;">
+                    <th>Language</th>
+                    <th>Level</th>
+                
+                    @foreach (var lang in Model.Languages)
+                    {
+                        <tr>
+                            <td>@lang.Key</td>
+                            <td>@lang.Value</td>
+                        </tr>
+                    }
+                </table>
+            }
+        
+
+            <br/>
+            <p>@Html.ActionLink("Find users by ID", "FindById")</p>
+        </div>
+    </body>
+</html>

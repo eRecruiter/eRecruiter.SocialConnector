@@ -1,0 +1,241 @@
+﻿@using eRecruiter.SocialConnector
+@model IProfile
+
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <style> 
+            th { padding: 1px 5px 1px 0px; text-align: left; font-size: 14px;}
+            td { padding: 1px 5px 1px 0px; }
+            div#main { padding-left: 20px; }
+        </style>
+    </head>
+    <body>
+            <p>Hello there, @(Model.Gender == Gender.Female ? "Mrs." : "Mr.")                
+                <b>@Model.FirstName @Model.LastName.</b></p>
+        
+            @if (Model.Experiences.Select(x => x.IsCurrent).Any())
+            {
+                var primaryCompany = Model.Experiences.Select(x => x).FirstOrDefault(x => x.IsCurrent);
+                <p>You are currently working at <b>@primaryCompany.Name</b>.</p>
+            }
+            else
+            {
+               <p>You are not working at all.</p>
+            }
+
+        <div id="main">
+            
+            
+            <table style="">               
+                <tr> 
+                    <td><u>Your profile URL:</u></td>
+                    <td><a href="@Model.Url">@Model.Url</a></td>
+                </tr>
+                <tr> 
+                    <td><u>Your Id:</u></td>
+                    <td>@Model.Id<td>
+                </tr>
+                <tr> 
+                    <td><u>Your Email:</u></td>
+                    <td>@Model.Email<td>
+                </tr>
+                <tr> 
+                    <td><u>Your address:</u></td>
+                    <td>@Model.Address<td>
+                </tr>
+                <tr> 
+                    <td><u>Your birth date:</u></td>
+                    <td>@Model.BirthDate.GetDateIfPossible()<td>
+                </tr>
+                <tr> 
+                    <td><u>Your Summary:</u></td>
+                    <td>@Model.Summary<td>
+                </tr>
+                <tr> 
+                    <td><u>Your Picture:</u></td>
+                    <td><a href="@Model.PictureUrl"><img src="@Model.PictureUrl" height="30"/></a><td>
+                </tr>
+                <tr> 
+                    <td><u>Your Phone Nubmer:</u></td>
+                    <td>@Model.PhoneNumber<td>
+                </tr>
+                <tr> 
+                    <td><u>Your Summary:</u></td>
+                    <td>@Model.Summary<td>
+                </tr>
+            </table>
+
+ 
+            
+            
+            @if (Model.Experiences != null)
+            {
+                <p style="margin-bottom: 3px; text-decoration: underline;">Experiences:</p>
+                <table style="padding-left: 20px;">
+                    <tr>
+                        <th>Title</th>
+                        <th>Name</th>
+                        <th>Company Size</th>
+                        <th>Industry</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Description</th>
+                        <th>Is Current</th>
+                    </tr>
+
+                    @foreach (var exp in Model.Experiences)
+                    {
+                        <tr> 
+                            <td>@exp.Title</td>
+                            <td>@exp.Name</td>
+                            <td>@exp.CompanySize</td>
+                            <td>@exp.Industry</td>
+                            <td>@((exp.StartDate != null && exp.StartDate.Year != 0) ? exp.StartDate.Year.ToString() : "")</td>
+                            <td>@((exp.EndDate != null && exp.EndDate.Year != 0) ? exp.EndDate.Year.ToString() : "")</td>
+                            <td>@exp.Description</td>
+                            <td>@exp.IsCurrent</td>
+                        </tr>
+                    }
+                </table>
+            }
+            
+            
+            @if (Model.Education != null)
+            {
+                <p style="margin-bottom: 3px; text-decoration: underline;">Education:</p>
+                <table style="padding-left: 20px;">
+                    <tr>
+                        <th>Name</th>
+                        <th>Field Of Study</th>
+                        <th>Degree</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                    </tr>
+
+                    @foreach (var edu in Model.Education)
+                    {
+                        <tr> 
+                            <td>@edu.Name</td>
+                            <td>@edu.FieldOfStudy</td>
+                            <td>@edu.Degree</td>
+                            <td>@((edu.StartDate != null && edu.StartDate.Year != 0) ? edu.StartDate.Year.ToString() : "")</td>
+                            <td>@((edu.EndDate != null && edu.EndDate.Year != 0) ? edu.EndDate.Year.ToString() : "")</td>
+                        </tr>
+                    }
+                </table>
+            }
+        
+            
+            @if (Model.AdditionalEducations != null)
+            {
+                <p style="margin-bottom: 3px; text-decoration: underline;">AdditionalEducations:</p>
+                <table style="padding-left: 20px;">
+                    <tr>
+                        <th>Additional Education</th>
+                    </tr>
+
+                    @foreach (var edu in Model.AdditionalEducations)
+                    {
+                        <tr> 
+                            <td>@edu</td>
+                        </tr>
+                    }
+                </table>
+            }
+            
+            
+            
+            @if (Model.Certifications != null)
+            {
+                <p style="margin-bottom: 3px; text-decoration: underline;">Certifications:</p>
+                <table style="padding-left: 20px;">
+                    <tr>
+                        <th>Name</th>
+                        <th>Number</th>
+                        <th>Authority</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                    </tr>
+
+                    @foreach (var cert in Model.Certifications)
+                    {
+                        <tr> 
+                            <td>@cert.Name</td>
+                            <td>@cert.Number</td>
+                            <td>@cert.Authority</td>
+                            <td>@(cert.StartDate.GetMonthYearIfPossible() ?? "")</td>
+                            <td>@((cert.EndDate != null && cert.EndDate.Year != 0) ? cert.EndDate.Year.ToString() : "")</td>
+                        </tr>
+                    }
+                </table>
+            }
+            
+            @if (Model.Skills != null)
+            {
+                <p style="margin-bottom: 3px; text-decoration: underline;">Skills:</p>
+                <table style="padding-left: 20px;">
+                    <tr>
+                        <th>Skill</th>
+                    </tr>
+
+                    @foreach (var skill in Model.Skills)
+                    {
+                        <tr> 
+                            <td>@skill</td>
+                        </tr>
+                    }
+                </table>
+            }
+            
+            
+            @if (Model.Languages != null)
+            {
+                <p style="margin-bottom: 3px; text-decoration: underline;">Languages:</p>
+                <table style="padding-left: 20px;">
+                    <tr>
+                        <th>Name</th>
+                        <th>Level</th>
+                    </tr>
+
+                    @foreach (var lang in Model.Languages)
+                    {
+                        <tr> 
+                            <td>@lang.Name</td>
+                            <td>@lang.Level</td>
+                        </tr>
+                    }
+                </table>
+            }
+            
+            @if (Model.Publications != null)
+            {
+                <p style="margin-bottom: 3px; text-decoration: underline;">Publications:</p>
+                <table style="padding-left: 20px;">
+                    <tr>
+                        <th>Title</th>
+                        <th>Summary</th>
+                        <th>Url</th>
+                        <th>Date</th>
+                    </tr>
+
+                    @foreach (var pub in Model.Publications)
+                    {
+                        <tr> 
+                            <td>@pub.Title</td>
+                            <td>@pub.Summary</td>
+                            <td>@pub.Url</td>
+                            <td>@(pub.Date.GetMonthYearIfPossible() ?? "")</td>
+                        </tr>
+                    }
+                </table>
+            }
+        
+        </div>
+    </body>
+</html>
+
+
+

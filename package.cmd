@@ -1,0 +1,1 @@
+packages\NuGet.CommandLine.2.8.2\tools\NuGet.exe pack eRecruiter.SocialConnector\eRecruiter.SocialConnector.csproj -Build -Properties Configuration=Release
