@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Web.Mvc;
 using System.Net.Http;
+using System.Collections.Generic;
 using DotNetOpenAuth.Messaging;
 using DotNetOpenAuth.OAuth;
 using DotNetOpenAuth.OAuth.ChannelElements;
 using eRecruiter.Utilities;
-using System.Web;
-using System.Web.Mvc;
 
 namespace eRecruiter.SocialConnector.Linkedin
 {
@@ -22,18 +22,18 @@ namespace eRecruiter.SocialConnector.Linkedin
         {
             return new ServiceProviderDescription
                 {
-                    RequestTokenEndpoint = new MessageReceivingEndpoint("https://api.linkedin.com/uas/oauth/requestToken", HttpDeliveryMethods.GetRequest),
-                    UserAuthorizationEndpoint = new MessageReceivingEndpoint("https://www.linkedin.com/uas/oauth/authorize", HttpDeliveryMethods.GetRequest),
-                    AccessTokenEndpoint = new MessageReceivingEndpoint("https://api.linkedin.com/uas/oauth/accessToken", HttpDeliveryMethods.GetRequest),
+                    RequestTokenEndpoint = new MessageReceivingEndpoint("https://api.linkedin.com/uas/oauth/requestToken", HttpDeliveryMethods.PostRequest),
+                    UserAuthorizationEndpoint = new MessageReceivingEndpoint("https://www.linkedin.com/uas/oauth/authorize", HttpDeliveryMethods.PostRequest),
+                    AccessTokenEndpoint = new MessageReceivingEndpoint("https://api.linkedin.com/uas/oauth/accessToken", HttpDeliveryMethods.PostRequest),
                     TamperProtectionElements = new ITamperProtectionChannelBindingElement[] {new HmacSha1SigningBindingElement()},ProtocolVersion = ProtocolVersion.V10a
                 };
         }
 
-        public ActionResult ProcessAuthorization(HttpRequestBase httpRequest, string redirectOnSuccess, out string accessToken)
+        public ActionResult ProcessAuthorization(string oauthToken, Uri returnUrl, string redirectOnSuccess, out string accessToken)
         {
             accessToken = null;
 
-            if (httpRequest["oauth_token"].HasValue())
+            if (oauthToken.HasValue())
             {
                 accessToken = _consumer.ProcessUserAuthorization().AccessToken;
                 return new RedirectResult(redirectOnSuccess);
@@ -41,7 +41,7 @@ namespace eRecruiter.SocialConnector.Linkedin
 
             var requestParams = new Dictionary<string, string>();
             requestParams["scope"] = "r_fullprofile r_emailaddress r_contactinfo";
-            var request = _consumer.PrepareRequestUserAuthorization(httpRequest.Url, requestParams, null);
+            var request = _consumer.PrepareRequestUserAuthorization(returnUrl, requestParams, null);
             return _consumer.Channel.PrepareResponse(request).AsActionResultMvc5();
         }
 

@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using DotNetOpenAuth.Messaging;
 using DotNetOpenAuth.OAuth;
 using DotNetOpenAuth.OAuth.ChannelElements;
@@ -28,17 +29,17 @@ namespace eRecruiter.SocialConnector.Xing
                 };
         }
 
-        public ActionResult ProcessAuthorization(HttpRequestBase httpRequest, string redirectOnSuccess, out string accessToken)
+        public ActionResult ProcessAuthorization(string oauthToken, Uri returnUrl, string redirectOnSuccess, out string accessToken)
         {
             accessToken = null;
 
-            if (httpRequest["oauth_token"].HasValue())
+            if (oauthToken.HasValue())
             {
                 accessToken = _consumer.ProcessUserAuthorization().AccessToken;
                 return new RedirectResult(redirectOnSuccess);
             }
 
-            var request = _consumer.PrepareRequestUserAuthorization();
+            var request = _consumer.PrepareRequestUserAuthorization(returnUrl, null, null);
             return _consumer.Channel.PrepareResponse(request).AsActionResultMvc5();
         }
 
