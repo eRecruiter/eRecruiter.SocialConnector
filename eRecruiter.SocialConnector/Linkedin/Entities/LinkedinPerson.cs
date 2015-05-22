@@ -92,17 +92,37 @@ namespace eRecruiter.SocialConnector.Linkedin.Entities
 
         public IEnumerable<IExperience> Experiences
         {
-            get { return Positions.Values; }
+            get
+            {
+                if (Positions == null || Positions.Values == null)
+                {
+                    return Enumerable.Empty<IExperience>();
+                }
+                return Positions.Values;
+            }
         }
 
         public IEnumerable<IEducation> Education
         {
-            get { return Educations.Values; }
+            get {
+                if (Educations == null || Educations.Values == null)
+                {
+                    return Enumerable.Empty<IEducation>();
+                }
+
+                return Educations.Values;             
+            }
         }
 
         public IEnumerable<string> AdditionalEducations
         {
-            get { return Courses.Values.Select(x => x.Name).ToList(); }
+            get {
+                if (Courses == null || Courses.Values == null)
+                {
+                    return Enumerable.Empty<string>();
+                }
+                return Courses.Values.Select(x => x.Name).ToList(); 
+            }
         }
 
         IEnumerable<string> IProfile.Skills
@@ -118,17 +138,36 @@ namespace eRecruiter.SocialConnector.Linkedin.Entities
 
         IEnumerable<ICertification> IProfile.Certifications
         {
-            get { return Certifications.Values; }
+            get {
+                if (Certifications == null || Certifications.Values == null)
+                {
+                    return Enumerable.Empty<ICertification>();
+                }
+                return Certifications.Values; 
+            }
         }
 
         IEnumerable<ILanguage> IProfile.Languages
         {
-            get { return Languages == null ? new List<ILanguage>().AsEnumerable() : Languages.Values; }
+            get
+            {
+                if (Languages == null || Languages.Values == null)
+                {
+                    return Enumerable.Empty<ILanguage>();
+                }
+                return Languages.Values;
+            }
         }
 
         IEnumerable<IPublication> IProfile.Publications
         {
-            get { return Publications.Values; }
+            get {
+                if (Publications == null || Publications.Values == null)
+                {
+                    return Enumerable.Empty<IPublication>();
+                }
+                return Publications.Values; 
+            }
         }
     }
 }

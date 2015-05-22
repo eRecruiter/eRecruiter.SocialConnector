@@ -39,9 +39,23 @@ namespace eRecruiter.SocialConnector.Linkedin
                 return new RedirectResult(redirectOnSuccess);
             }
 
+            IProtocolMessage request;
             var requestParams = new Dictionary<string, string>();
-            requestParams["scope"] = "r_fullprofile r_emailaddress r_contactinfo";
-            var request = _consumer.PrepareRequestUserAuthorization(returnUrl, requestParams, null);
+
+            try
+            {
+                // try to fetch the full profile (Apply with LinkedIn)
+                requestParams["scope"] = "r_fullprofile r_contactinfo r_emailaddress";
+                request = _consumer.PrepareRequestUserAuthorization(returnUrl, requestParams, null);
+            }
+            catch (Exception)
+            {
+                // try to fetch the basic profile
+                requestParams["scope"] = "r_basicprofile r_emailaddress";
+                request = _consumer.PrepareRequestUserAuthorization(returnUrl, requestParams, null);
+            }
+
+            // prepare the response
             return _consumer.Channel.PrepareResponse(request).AsActionResultMvc5();
         }
 
